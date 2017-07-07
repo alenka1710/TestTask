@@ -1,0 +1,33 @@
+$accent-color: #4CAF50;
+$border-color: #DDD;
+$color-white: #FFF;
+$color-black: #222;
+
+.table-userData {
+  border-collapse: collapse;
+  font-size: 16px;
+  margin: 40px auto 0;
+  text-align: center;
+  width: 65%;
+}
+
+.table-userData__header {
+  background-color: $accent-color;
+  color: $color-white;
+}
+
+.body__cell,
+.header__cell {
+  border: 1px solid $border-color;
+  padding: 8px;
+  text-align: left;
+}
+
+.table-userData__body {
+  color: $color-black;
+
+  &:hover {
+    background-color: #F2F2F2;
+    cursor: pointer;
+  }
+}
