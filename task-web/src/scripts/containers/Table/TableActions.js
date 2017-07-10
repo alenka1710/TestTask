@@ -24,3 +24,21 @@ export function fetchDeleteUserData(id) {
     id,
   };
 }
+
+export const PRE_SAVE = 'PRE_CREATE';
+
+export function preCreate(index) {
+  return {
+    type: PRE_SAVE,
+    index,
+  };
+}
+
+export const CREATE_NEW_USER = 'CREATE_NEW_USER';
+
+export function createNewUser(data) {
+  return {
+    type: CREATE_NEW_USER,
+    data,
+  };
+}

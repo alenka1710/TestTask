@@ -4,21 +4,31 @@ import './Table.scss';
 
 function redirectToDetails(item) {
   const { id } = item;
-  // console.log(item);
   return browserHistory.push(`details/${id}`);
 }
+
 class Table extends Component {
   constructor(props) {
     super(props);
     this.renderTableRows = this.renderTableRows.bind(this);
+    this.redirectToCreateUser = this.redirectToCreateUser.bind(this);
+    this.deleteUserData = this.deleteUserData.bind(this);
   }
 
   componentDidMount() {
     this.props.usersData();
   }
 
+  redirectToCreateUser(indexBefore) {
+    this.props.preCreate(indexBefore + 1, 'new');
+  }
+
+  deleteUserData(id, redirectRoute) {
+    this.props.fetchDeleteUserData(id, redirectRoute);
+  }
+
   renderTableRows(usersData) {
-    return usersData.map(item => (
+    return usersData.map((item, index) => (
       <tr
         key={item.id}
         className="table-userData__body"
@@ -29,14 +39,22 @@ class Table extends Component {
         <td className="body__cell body__cell--add-item ">
           <i
             className="fa fa-plus"
+            title="Create new item of list"
             aria-hidden="true"
+            onClick={() => this.redirectToCreateUser(index)}
           />
           <i
             className="fa fa-pencil"
+            title="Edit user data"
             aria-hidden="true"
             onClick={() => redirectToDetails(item)}
           />
-          <i className="fa fa-trash-o" aria-hidden="true" />
+          <i
+            className="fa fa-trash-o"
+            title="Delete item"
+            onClick={() => this.deleteUserData(item.id, '/')}
+            aria-hidden="true"
+          />
         </td>
       </tr>
     ), this);
@@ -62,7 +80,9 @@ class Table extends Component {
 
 Table.propTypes = {
   usersData: PropTypes.func.isRequired,
+  preCreate: PropTypes.func.isRequired,
   users: PropTypes.array.isRequired,
+  fetchDeleteUserData: PropTypes.func.isRequired,
 };
 
 export default Table;

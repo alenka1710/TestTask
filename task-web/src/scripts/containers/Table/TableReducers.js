@@ -1,5 +1,10 @@
-// import uuidv1 from 'uuid/v1';
-import { FETCH_USERS_DATA, FETCH_USER_DATA, DELETE_USER_DATA } from './TableActions';
+import {
+    FETCH_USERS_DATA,
+    FETCH_USER_DATA,
+    DELETE_USER_DATA,
+    PRE_SAVE,
+    CREATE_NEW_USER,
+  } from './TableActions';
 import createReducer from './../../utils/reduxUtils';
 
 const initialUsersState = {
@@ -65,7 +70,6 @@ function requestUserData(state) {
 }
 
 function recieveUserData(state, action) {
-  // console.log(1);
   const indexOfUpdatedItem = state.users.findIndex(item => item.id === action.id);
   const { users } = state;
   users[indexOfUpdatedItem] = {
@@ -89,11 +93,39 @@ function requestDeleteUserData(state) {
 function recieveDeleteUserData(state, action) {
   const indexOfUpdatedItem = state.users.findIndex(item => item.id === action.id);
   const { users } = state;
-  // users[indexOfUpdatedItem] = {
-  //   id: action.id,
-  //   ...action.data,
-  // };
   users.splice(indexOfUpdatedItem, 1);
+  return {
+    ...state,
+    isFetching: false,
+  };
+}
+
+function requestPreCreate(state) {
+  return {
+    ...state,
+    isFetching: true,
+  };
+}
+
+function recievePreCreate(state, action) {
+  return {
+    ...state,
+    preSave: action.index,
+    isFetching: true,
+  };
+}
+
+function requestCreateNewUser(state) {
+  return {
+    ...state,
+    isFetching: true,
+  };
+}
+
+function recieveCreateNewUser(state, action) {
+  const { users, preSave } = state;
+  const { data } = action;
+  users.splice(preSave, 0, data);
   return {
     ...state,
     users,
@@ -108,6 +140,10 @@ const userData = createReducer(initialUsersState, {
   [FETCH_USER_DATA]: recieveUserData,
   [`${DELETE_USER_DATA}__REQUEST`]: requestDeleteUserData,
   [DELETE_USER_DATA]: recieveDeleteUserData,
+  [`${PRE_SAVE}__REQUEST`]: requestPreCreate,
+  [PRE_SAVE]: recievePreCreate,
+  [`${CREATE_NEW_USER}__REQUEST`]: requestCreateNewUser,
+  [CREATE_NEW_USER]: recieveCreateNewUser,
 });
 
 export default userData;

@@ -1,0 +1,30 @@
+.update-user-data__form-data {
+  margin: 40px auto;
+  padding: 35px 0;
+  text-align: center;
+  width: 70%;
+
+  .field__input {
+    border: 1px solid grey;
+    border-radius: 0.3 * 15px;
+    box-sizing: border-box;
+    height: 2.5 * 15px;
+    margin-bottom: 15px;
+    padding-left: 15px;
+    width: 100%;
+
+    &.field__input_error {
+      border: 2px solid red;
+    }
+
+    ~ .field__span-error {
+      color: red;
+      display: block;
+      margin-bottom: 15px;
+
+      &.field__span-error_noneItem {
+        display: none;
+      }
+    }
+  }
+}

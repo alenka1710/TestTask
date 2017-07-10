@@ -4,7 +4,6 @@ export default class Detail extends Component {
   constructor(props) {
     super(props);
     this.user = props.user.filter(item => item.id === props.params.id)[0];
-    console.log('user', this.user);
     this.state = {
       name: this.user.name,
       lastName: this.user.lastName,
@@ -30,18 +29,15 @@ export default class Detail extends Component {
     this.renderInputs = this.renderInputs.bind(this);
     this.onHandlerSubmit = this.onHandlerSubmit.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
-    this.deleteUserData = this.deleteUserData.bind(this);
   }
 
   onHandlerSubmit(event) {
-    console.log(this.state);
     event.preventDefault();
     const userUpdateData = {
       name: this.state.name,
       lastName: this.state.lastName,
       email: this.state.email,
     };
-    console.log('newData', userUpdateData);
     this.props.fetchUserInfo(this.user.id, userUpdateData, '/');
   }
 
@@ -50,10 +46,6 @@ export default class Detail extends Component {
     this.setState({
       [name]: value,
     });
-  }
-
-  deleteUserData() {
-    this.props.fetchDeleteUserData(this.user.id, '/');
   }
 
   renderInputs(inputs) {
@@ -86,7 +78,6 @@ export default class Detail extends Component {
             {this.renderInputs(this.inputData)}
             <button
               type="button"
-              onClick={this.deleteUserData}
             >
               Delete
             </button>
@@ -101,5 +92,4 @@ export default class Detail extends Component {
 Detail.propTypes = {
   fetchUserInfo: PropTypes.func.isRequired,
   user: PropTypes.array.isRequired,
-  fetchDeleteUserData: PropTypes.func.isRequired,
 };

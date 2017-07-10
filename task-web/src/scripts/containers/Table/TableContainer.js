@@ -1,6 +1,7 @@
 import { connect } from 'react-redux';
+import { browserHistory } from 'react-router';
 import Table from './../../components/Table';
-import { fetchUsersData } from './TableActions';
+import { fetchUsersData, preCreate, fetchDeleteUserData } from './TableActions';
 
 const mapStateToProps = state => ({
   users: state.userData.users,
@@ -8,6 +9,14 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   usersData: () => {
     dispatch(fetchUsersData());
+  },
+  preCreate: (index, redirectRoute) => {
+    dispatch(preCreate(index));
+    browserHistory.push(redirectRoute);
+  },
+  fetchDeleteUserData: (id, redirectRoute) => {
+    dispatch(fetchDeleteUserData(id, redirectRoute));
+    browserHistory.push(redirectRoute);
   },
   dispatch,
 });
