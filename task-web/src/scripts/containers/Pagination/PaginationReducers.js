@@ -3,6 +3,7 @@ import createReducer from './../../utils/reduxUtils';
 
 const initialState = {
   showCount: 4,
+  stopPagination: false,
 };
 
 function requestShowCount(state) {
@@ -13,17 +14,21 @@ function requestShowCount(state) {
 }
 
 function recieveShowCount(state, action) {
-  let { showCount } = state;
+  let { showCount, stopPagination } = state;
   const { listLength, count } = action;
-  if (listLength - showCount > count) {
-    showCount += action.count;
+  if (showCount < listLength) {
+    showCount += count;
+    stopPagination = false;
   }
-  console.log(showCount);
+  if (showCount >= listLength) {
+    stopPagination = true;
+  }
   return {
     ...state,
     isFetching: false,
     showCount,
     listLength,
+    stopPagination,
   };
 }
 

@@ -1,6 +1,5 @@
 import React, { Component, PropTypes } from 'react';
 import { browserHistory } from 'react-router';
-import Pagination from './../Pagination';
 import './Table.scss';
 
 function redirectToDetails(item) {
@@ -29,7 +28,9 @@ class Table extends Component {
   }
 
   renderTableRows(usersData) {
-    return usersData.map((item, index) => (
+    const { showCount } = this.props.pagination;
+    return usersData.filter((item, index) => index < showCount)
+    .map((item, index) => (
       <tr
         key={item.id}
         className="table-userData__body"
@@ -65,7 +66,6 @@ class Table extends Component {
     const { users } = this.props;
     return (
       <div>
-        <Pagination />
         <table className="table-userData">
           <tbody>
             <tr className="table-userData__header">
@@ -87,6 +87,7 @@ Table.propTypes = {
   preCreate: PropTypes.func.isRequired,
   users: PropTypes.array.isRequired,
   fetchDeleteUserData: PropTypes.func.isRequired,
+  pagination: PropTypes.object.isRequired,
 };
 
 export default Table;

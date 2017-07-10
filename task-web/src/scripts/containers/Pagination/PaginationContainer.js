@@ -4,7 +4,7 @@ import { showMoreItems } from './PaginationActions';
 
 const mapStateToProps = state => ({
   usersLength: state.userData.users.length,
-  showCount: state.showCount,
+  pagination: state.pagination,
 });
 const mapDispatchToProps = dispatch => ({
   showMoreItems: (count, listLength) => {

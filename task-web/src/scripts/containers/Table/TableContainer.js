@@ -5,6 +5,7 @@ import { fetchUsersData, preCreate, fetchDeleteUserData } from './TableActions';
 
 const mapStateToProps = state => ({
   users: state.userData.users,
+  pagination: state.pagination,
 });
 const mapDispatchToProps = dispatch => ({
   usersData: () => {

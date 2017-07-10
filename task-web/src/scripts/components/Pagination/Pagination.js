@@ -1,4 +1,6 @@
 import React, { Component, PropTypes } from 'react';
+import classnames from 'classnames';
+import './Pagination.scss';
 
 class Pagination extends Component {
   constructor(props) {
@@ -26,9 +28,15 @@ class Pagination extends Component {
     return (
       <div>
         <button
-          className="show-more-items"
           onClick={this.handleClick}
-        >More</button>
+          className={classnames(
+            'show-more-items', {
+              'hide-more-items': this.props.pagination.stopPagination,
+            }
+          )}
+        >
+          More
+        </button>
       </div>
     );
   }
@@ -38,6 +46,7 @@ class Pagination extends Component {
 Pagination.propTypes = {
   showMoreItems: PropTypes.func.isRequired,
   usersLength: PropTypes.number.isRequired,
+  pagination: PropTypes.object.isRequired,
 };
 
 export default Pagination;
