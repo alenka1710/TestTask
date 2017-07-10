@@ -4,6 +4,7 @@ import AppContainer from './components/App';
 import Table from './containers/Table/TableContainer';
 import UserInfo from './containers/DetailInfo/DetailContainer';
 import CreateUser from './containers/CreateUser/CreateUserContainer';
+// import ShowMore from './containers/Pagination/PaginationContainer';
 
 export default function AppRouter() {
   return (

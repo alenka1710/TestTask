@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { browserHistory } from 'react-router';
+import Pagination from './../Pagination';
 import './Table.scss';
 
 function redirectToDetails(item) {
@@ -63,17 +64,20 @@ class Table extends Component {
   render() {
     const { users } = this.props;
     return (
-      <table className="table-userData">
-        <tbody>
-          <tr className="table-userData__header">
-            <th className="header__cell">First Name </th>
-            <th className="header__cell">Last Name </th>
-            <th className="header__cell">Email </th>
-            <th />
-          </tr>
-          {this.renderTableRows(users)}
-        </tbody>
-      </table>
+      <div>
+        <Pagination />
+        <table className="table-userData">
+          <tbody>
+            <tr className="table-userData__header">
+              <th className="header__cell">First Name </th>
+              <th className="header__cell">Last Name </th>
+              <th className="header__cell">Email </th>
+              <th />
+            </tr>
+            {this.renderTableRows(users)}
+          </tbody>
+        </table>
+      </div>
     );
   }
 }

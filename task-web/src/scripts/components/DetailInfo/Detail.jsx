@@ -1,4 +1,7 @@
 import React, { Component, PropTypes } from 'react';
+import classnames from 'classnames';
+import validateInput from './../CreateUser/validations';
+import './../CreateUser/CreateUser.scss';
 
 export default class Detail extends Component {
   constructor(props) {
@@ -8,6 +11,8 @@ export default class Detail extends Component {
       name: this.user.name,
       lastName: this.user.lastName,
       email: this.user.email,
+      errors: {},
+      isValid: false,
     };
     this.inputData = [
       {
@@ -29,16 +34,28 @@ export default class Detail extends Component {
     this.renderInputs = this.renderInputs.bind(this);
     this.onHandlerSubmit = this.onHandlerSubmit.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleFocusInput = this.handleFocusInput.bind(this);
   }
 
   onHandlerSubmit(event) {
     event.preventDefault();
-    const userUpdateData = {
-      name: this.state.name,
-      lastName: this.state.lastName,
-      email: this.state.email,
-    };
-    this.props.fetchUserInfo(this.user.id, userUpdateData, '/');
+    if (this.isValid()) {
+      const userUpdateData = {
+        name: this.state.name,
+        lastName: this.state.lastName,
+        email: this.state.email,
+      };
+      this.props.fetchUserInfo(this.user.id, userUpdateData, '/');
+      this.setState({
+        errors: {},
+      });
+    }
+  }
+
+  isValid() {
+    const { errors, isValid } = validateInput(this.state);
+    this.setState({ errors });
+    return isValid;
   }
 
   handleInputChange(event) {
@@ -48,7 +65,22 @@ export default class Detail extends Component {
     });
   }
 
+  handleFocusInput(event) {
+    const { name } = event.target;
+    if (this.state.errors[name]) {
+      this.setState(prevState => (
+        {
+          ...prevState,
+          errors: {
+            ...prevState.errors,
+            [name]: null,
+          },
+        }));
+    }
+  }
+
   renderInputs(inputs) {
+    const { errors } = this.state;
     return inputs.map(input => (
       <div className="form-data__input-line" key={input.title}>
         <label htmlFor={input.id}>
@@ -57,15 +89,33 @@ export default class Detail extends Component {
         <input
           name={input.id}
           type="text"
+          className={classnames(
+            'field__input',
+            {
+              field__input_error: errors[input.id],
+            }
+          )}
           placeholder={input.placeholder}
           value={this.state[input.id]}
           onChange={this.handleInputChange}
+          onFocus={this.handleFocusInput}
         />
+        <span
+          className={classnames(
+            'field__span-error',
+            {
+              'field__span-error_noneItem': !errors[input.id],
+            }
+          )}
+        >
+          {errors[input.id]}
+        </span>
       </div>
     ), this);
   }
 
   render() {
+    const { error } = this.props;
     return (
       <div className="update-user-data">
         <form
@@ -76,6 +126,15 @@ export default class Detail extends Component {
           <fieldset>
             <legend>Update data</legend>
             {this.renderInputs(this.inputData)}
+            {
+              error && error.message
+                ? (
+                  <span className={classnames('form__message')} >
+                    {error.message}
+                  </span>
+                )
+                : null
+            }
             <button
               type="button"
             >
@@ -89,7 +148,12 @@ export default class Detail extends Component {
   }
 }
 
+Detail.defaultProps = {
+  error: null,
+};
+
 Detail.propTypes = {
   fetchUserInfo: PropTypes.func.isRequired,
   user: PropTypes.array.isRequired,
+  error: PropTypes.object,
 };

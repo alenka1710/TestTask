@@ -45,6 +45,42 @@ const initialUsersState = {
       lastName: 'fakefake',
       email: 'fake@mail.ru',
     },
+    {
+      id: '049bdd66-6542-11e7-bdd0-6b33c77121cb',
+      name: 'Mable',
+      lastName: 'Test',
+      email: 'qwe@mail.ru',
+    },
+    {
+      id: '049bdd67-6542-11e7-bdd0-6b33c77121cb',
+      name: 'Nick',
+      lastName: 'nick without lastName',
+      email: 'Nicknick@mail.ru',
+    },
+    {
+      id: '049bdd68-6542-11e7-bdd0-6b33c77121cb',
+      name: 'Aliona',
+      lastName: 'Sipchuk',
+      email: 'alenka.sipchuk@gmail.com',
+    },
+    {
+      id: '049bdd69-6542-11e7-bdd0-6b33c77121cb',
+      name: 'Alex',
+      lastName: 'Bruzgin',
+      email: 'Nicknick@mail.ru',
+    },
+    {
+      id: '049bdd70-6542-11e7-bdd0-6b33c77121cb',
+      name: 'Marina',
+      lastName: 'Adamchik',
+      email: 'marusia@mail.ru',
+    },
+    {
+      id: '049bdd71-6542-11e7-bdd0-6b33c77121cb',
+      name: 'fake',
+      lastName: 'fakefake',
+      email: 'fake@mail.ru',
+    },
   ],
 };
 
