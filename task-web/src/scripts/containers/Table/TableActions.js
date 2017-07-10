@@ -16,3 +16,11 @@ export function fetchUserData(id, data) {
   };
 }
 
+export const DELETE_USER_DATA = 'DELETE_USER_DATA';
+
+export function fetchDeleteUserData(id) {
+  return {
+    type: DELETE_USER_DATA,
+    id,
+  };
+}

@@ -2,21 +2,19 @@ import React, { Component, PropTypes } from 'react';
 import { browserHistory } from 'react-router';
 import './Table.scss';
 
+function redirectToDetails(item) {
+  const { id } = item;
+  // console.log(item);
+  return browserHistory.push(`details/${id}`);
+}
 class Table extends Component {
   constructor(props) {
     super(props);
     this.renderTableRows = this.renderTableRows.bind(this);
-    this.redirectToDetails = this.redirectToDetails.bind(this);
   }
 
   componentDidMount() {
     this.props.usersData();
-  }
-
-  redirectToDetails(item) {
-    const { id } = item;
-    browserHistory.push(`details/${id}`);
-    console.log(this.state);
   }
 
   renderTableRows(usersData) {
@@ -24,11 +22,22 @@ class Table extends Component {
       <tr
         key={item.id}
         className="table-userData__body"
-        onClick={() => this.redirectToDetails(item)}
       >
         <td className="body__cell">{item.name}</td>
         <td className="body__cell">{item.lastName}</td>
         <td className="body__cell">{item.email}</td>
+        <td className="body__cell body__cell--add-item ">
+          <i
+            className="fa fa-plus"
+            aria-hidden="true"
+          />
+          <i
+            className="fa fa-pencil"
+            aria-hidden="true"
+            onClick={() => redirectToDetails(item)}
+          />
+          <i className="fa fa-trash-o" aria-hidden="true" />
+        </td>
       </tr>
     ), this);
   }
@@ -42,6 +51,7 @@ class Table extends Component {
             <th className="header__cell">First Name </th>
             <th className="header__cell">Last Name </th>
             <th className="header__cell">Email </th>
+            <th />
           </tr>
           {this.renderTableRows(users)}
         </tbody>

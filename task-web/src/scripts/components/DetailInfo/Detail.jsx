@@ -3,7 +3,8 @@ import React, { Component, PropTypes } from 'react';
 export default class Detail extends Component {
   constructor(props) {
     super(props);
-    this.user = props.user.filter(item => item.id === parseInt(props.params.id, 10))[0];
+    this.user = props.user.filter(item => item.id === props.params.id)[0];
+    console.log('user', this.user);
     this.state = {
       name: this.user.name,
       lastName: this.user.lastName,
@@ -29,9 +30,11 @@ export default class Detail extends Component {
     this.renderInputs = this.renderInputs.bind(this);
     this.onHandlerSubmit = this.onHandlerSubmit.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
+    this.deleteUserData = this.deleteUserData.bind(this);
   }
 
   onHandlerSubmit(event) {
+    console.log(this.state);
     event.preventDefault();
     const userUpdateData = {
       name: this.state.name,
@@ -39,7 +42,7 @@ export default class Detail extends Component {
       email: this.state.email,
     };
     console.log('newData', userUpdateData);
-    this.props.fetchUserInfo(this.user.id, userUpdateData);
+    this.props.fetchUserInfo(this.user.id, userUpdateData, '/');
   }
 
   handleInputChange(event) {
@@ -47,6 +50,10 @@ export default class Detail extends Component {
     this.setState({
       [name]: value,
     });
+  }
+
+  deleteUserData() {
+    this.props.fetchDeleteUserData(this.user.id, '/');
   }
 
   renderInputs(inputs) {
@@ -67,19 +74,24 @@ export default class Detail extends Component {
   }
 
   render() {
-    // console.log('props.user', this.props.user);
-    // console.log(this.user);
     return (
       <div className="update-user-data">
-        <h3>Update data</h3>
         <form
           className="update-user-data__form-data"
           noValidate
           onSubmit={this.onHandlerSubmit}
         >
-          {this.renderInputs(this.inputData)}
-          <button>Save </button>
-          <button type="button">Delete </button>
+          <fieldset>
+            <legend>Update data</legend>
+            {this.renderInputs(this.inputData)}
+            <button
+              type="button"
+              onClick={this.deleteUserData}
+            >
+              Delete
+            </button>
+            <button className="form-data__save-button">Save </button>
+          </fieldset>
         </form>
       </div>
     );
@@ -89,4 +101,5 @@ export default class Detail extends Component {
 Detail.propTypes = {
   fetchUserInfo: PropTypes.func.isRequired,
   user: PropTypes.array.isRequired,
+  fetchDeleteUserData: PropTypes.func.isRequired,
 };
