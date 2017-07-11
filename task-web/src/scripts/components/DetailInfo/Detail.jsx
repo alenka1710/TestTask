@@ -82,8 +82,8 @@ export default class Detail extends Component {
   renderInputs(inputs) {
     const { errors } = this.state;
     return inputs.map(input => (
-      <div className="form-data__input-line" key={input.title}>
-        <label htmlFor={input.id}>
+      <div className="form-data__field" key={input.title}>
+        <label htmlFor={input.id} className="field__label">
           {input.title}
         </label>
         <input
@@ -123,7 +123,7 @@ export default class Detail extends Component {
           noValidate
           onSubmit={this.onHandlerSubmit}
         >
-          <fieldset>
+          <fieldset className="form-data__fieldset">
             <legend>Update data</legend>
             {this.renderInputs(this.inputData)}
             {

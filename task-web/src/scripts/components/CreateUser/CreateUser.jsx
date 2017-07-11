@@ -85,7 +85,7 @@ export default class CreateUser extends Component {
     const { errors } = this.state;
     return inputs.map(input => (
       <div className="form-data__field" key={input.title}>
-        <label htmlFor={input.id}>
+        <label htmlFor={input.id} className="field__label">
           {input.title}
         </label>
         <input
@@ -125,7 +125,7 @@ export default class CreateUser extends Component {
           noValidate
           onSubmit={this.onHandlerSubmit}
         >
-          <fieldset>
+          <fieldset className="form-data__fieldset">
             <legend>Create user</legend>
             {this.renderInputs(this.inputData)}
             {

@@ -11,7 +11,7 @@ export default function AppRouter() {
     <Router history={browserHistory}>
       <Route path="/" component={AppContainer}>
         <IndexRoute component={MainPage} />
-        <Route path="details/:id" component={UserInfo} />
+        <Route path="edit/:id" component={UserInfo} />
         <Route path="new" component={CreateUser} />
       </Route>
     </Router>

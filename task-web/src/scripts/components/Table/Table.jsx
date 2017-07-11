@@ -4,7 +4,7 @@ import './Table.scss';
 
 function redirectToDetails(item) {
   const { id } = item;
-  return browserHistory.push(`details/${id}`);
+  return browserHistory.push(`edit/${id}`);
 }
 
 class Table extends Component {
@@ -38,25 +38,27 @@ class Table extends Component {
         <td className="body__cell">{item.name}</td>
         <td className="body__cell">{item.lastName}</td>
         <td className="body__cell">{item.email}</td>
-        <td className="body__cell body__cell--add-item ">
-          <i
-            className="fa fa-plus"
-            title="Create new item of list"
-            aria-hidden="true"
-            onClick={() => this.redirectToCreateUser(index)}
-          />
-          <i
-            className="fa fa-pencil"
-            title="Edit user data"
-            aria-hidden="true"
-            onClick={() => redirectToDetails(item)}
-          />
-          <i
-            className="fa fa-trash-o"
-            title="Delete item"
-            onClick={() => this.deleteUserData(item.id, '/')}
-            aria-hidden="true"
-          />
+        <td className="body__cell body__cell--add-func ">
+          <div className="add-func__container">
+            <i
+              className="fa fa-plus"
+              title="Create new item of list"
+              aria-hidden="true"
+              onClick={() => this.redirectToCreateUser(index)}
+            />
+            <i
+              className="fa fa-pencil"
+              title="Edit user data"
+              aria-hidden="true"
+              onClick={() => redirectToDetails(item)}
+            />
+            <i
+              className="fa fa-trash-o"
+              title="Delete item"
+              onClick={() => this.deleteUserData(item.id, '/')}
+              aria-hidden="true"
+            />
+          </div>
         </td>
       </tr>
     ), this);

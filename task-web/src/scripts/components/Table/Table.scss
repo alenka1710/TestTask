@@ -31,3 +31,8 @@ $color-black: #222;
     cursor: pointer;
   }
 }
+
+.add-func__container {
+  display: flex;
+  justify-content: space-around;
+}
