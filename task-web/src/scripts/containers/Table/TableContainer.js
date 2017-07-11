@@ -15,9 +15,8 @@ const mapDispatchToProps = dispatch => ({
     dispatch(preCreate(index));
     browserHistory.push(redirectRoute);
   },
-  fetchDeleteUserData: (id, redirectRoute) => {
-    dispatch(fetchDeleteUserData(id, redirectRoute));
-    browserHistory.push(redirectRoute);
+  fetchDeleteUserData: (id) => {
+    dispatch(fetchDeleteUserData(id));
   },
   dispatch,
 });

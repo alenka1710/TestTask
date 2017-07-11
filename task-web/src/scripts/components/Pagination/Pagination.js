@@ -16,13 +16,6 @@ class Pagination extends Component {
     const { selectedValue } = this.state;
     this.props.showMoreItems(selectedValue, usersLength);
   }
-  // handleSelectChange(event) {
-  //   this.setState({
-  //     selectedValue: event.target.value,
-  //   });
-  //   // this.props.changeCountItems(this.selectedValue);
-  //   console.log(this.state.selectedValue);
-  // }
 
   render() {
     return (

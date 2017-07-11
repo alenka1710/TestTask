@@ -10,6 +10,9 @@ function redirectToDetails(item) {
 class Table extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      data: props.users,
+    };
     this.renderTableRows = this.renderTableRows.bind(this);
     this.redirectToCreateUser = this.redirectToCreateUser.bind(this);
     this.deleteUserData = this.deleteUserData.bind(this);
@@ -19,12 +22,18 @@ class Table extends Component {
     this.props.usersData();
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.users !== this.props.users) {
+      this.setState({ data: nextProps.users });
+    }
+  }
+
   redirectToCreateUser(indexBefore) {
     this.props.preCreate(indexBefore + 1, 'new');
   }
 
-  deleteUserData(id, redirectRoute) {
-    this.props.fetchDeleteUserData(id, redirectRoute);
+  deleteUserData(id) {
+    this.props.fetchDeleteUserData(id);
   }
 
   renderTableRows(usersData) {
@@ -55,7 +64,7 @@ class Table extends Component {
             <i
               className="fa fa-trash-o"
               title="Delete item"
-              onClick={() => this.deleteUserData(item.id, '/')}
+              onClick={() => this.deleteUserData(item.id)}
               aria-hidden="true"
             />
           </div>
@@ -65,7 +74,7 @@ class Table extends Component {
   }
 
   render() {
-    const { users } = this.props;
+    // const { users } = this.props;
     return (
       <div>
         <table className="table-userData">
@@ -76,7 +85,7 @@ class Table extends Component {
               <th className="header__cell">Email </th>
               <th />
             </tr>
-            {this.renderTableRows(users)}
+            {this.renderTableRows(this.state.data)}
           </tbody>
         </table>
       </div>

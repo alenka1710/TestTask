@@ -135,11 +135,6 @@ export default class Detail extends Component {
                 )
                 : null
             }
-            <button
-              type="button"
-            >
-              Delete
-            </button>
             <button className="form-data__save-button">Save </button>
           </fieldset>
         </form>

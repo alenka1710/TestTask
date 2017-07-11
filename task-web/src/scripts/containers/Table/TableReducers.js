@@ -128,10 +128,11 @@ function requestDeleteUserData(state) {
 
 function recieveDeleteUserData(state, action) {
   const indexOfUpdatedItem = state.users.findIndex(item => item.id === action.id);
-  const { users } = state;
-  users.splice(indexOfUpdatedItem, 1);
+  let { users } = state;
+  users = users.filter((user, index) => index !== indexOfUpdatedItem);
   return {
     ...state,
+    users,
     isFetching: false,
   };
 }
